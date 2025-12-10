@@ -1,0 +1,724 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  serialNumber String?  @unique
+  username     String   @unique
+  email        String   @unique
+  passwordHash String
+  role         UserRole
+  fullName     String
+  teamId       String?
+  accountManagerId String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  lastLogin    DateTime?
+  todayLoginTime DateTime?
+  todayLatenessMinutes Int @default(0)
+  lastLoginDate DateTime?
+  
+  // Relations
+  team         Team?          @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  accountManager User?        @relation("AccountManagerToTeamLeaders", fields: [accountManagerId], references: [id], onDelete: SetNull)
+  teamLeaders  User[]         @relation("AccountManagerToTeamLeaders")
+  leads        Lead[]         @relation("AgentLeads")
+  qcLeads      Lead[]         @relation("QCLeads")
+  auditTrails  LeadAudit[]
+  leadNotes    LeadNote[]
+  leaveRequests LeaveRequest[] @relation("LeaveRequestUser")
+  managedLeaves LeaveRequest[] @relation("LeaveRequestManager")
+  managedTeam  Team?          @relation("TeamLeader")
+  managedCampaigns Campaign[]  @relation("CampaignManager")
+  accountManagerCampaigns Campaign[] @relation("CampaignAccountManager")
+  clientCampaigns Campaign[]   @relation("CampaignClient")
+  qcCampaigns  Campaign[]     @relation("CampaignQCAgent")
+  campaignQC   CampaignQC[]   @relation("CampaignQC")
+  dailyTopAgentRecords DailyTopAgent[]
+  loginHistory LoginHistory[]
+  submittedTickets ITTicket[] @relation("TicketSubmitter")
+  assignedITTickets ITTicket[] @relation("AssignedITTickets")
+  ticketResponses ITTicketResponse[] @relation("ITTicketResponses")
+  ticketStatusChanges ITTicketStatusHistory[] @relation("ITTicketStatusChanges")
+  itAssignments ITAssignment[] @relation("ITAssignments")
+  accountManagerITAssignments ITAssignment[] @relation("AccountManagerITAssignments")
+  positions       Position[] @relation("ClientPositions")
+  clientNotes   ClientNote[]   @relation("ClientNotes")
+  clientSchedules ClientSchedule[] @relation("ClientSchedules")
+  clientTeamMembers ClientTeamMember[] @relation("ClientTeamMembers")
+  clientTasks   Task[]         @relation("ClientTasks")
+  clientAutomationRules PipelineAutomationRule[] @relation("ClientAutomationRules")
+  clientActivityLogs ActivityLog[] @relation("ClientActivityLogs")
+  
+  @@map("users")
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  teamLeaderUserId String? @unique
+  
+  users     User[]
+  leads     Lead[]
+  campaigns CampaignTeam[]
+  teamLeader User?   @relation("TeamLeader", fields: [teamLeaderUserId], references: [id], onDelete: SetNull)
+  dailyTopAgents DailyTopAgent[]
+  
+  @@map("teams")
+}
+
+model Campaign {
+  id              String   @id @default(cuid())
+  name            String
+  managerId       String
+  accountManagerId String?
+  clientId        String?
+  qcUserId        String?
+  leadsTarget     Int?
+  isActive        Boolean  @default(true)
+  formConfig      Json?
+  formTemplateId  String?
+  timezone        String?
+  qualifications  String?  @db.Text
+  createdAt       DateTime @default(now())
+  
+  manager         User            @relation("CampaignManager", fields: [managerId], references: [id], onDelete: Cascade)
+  accountManager  User?           @relation("CampaignAccountManager", fields: [accountManagerId], references: [id], onDelete: SetNull)
+  client          User?           @relation("CampaignClient", fields: [clientId], references: [id], onDelete: SetNull)
+  qcAgent         User?           @relation("CampaignQCAgent", fields: [qcUserId], references: [id], onDelete: SetNull)
+  formTemplate    FormTemplate?   @relation(fields: [formTemplateId], references: [id], onDelete: SetNull)
+  leads           Lead[]
+  teams           CampaignTeam[]
+  qcAgents        CampaignQC[]
+  
+  @@map("campaigns")
+}
+
+model FormTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  fields      Json
+  createdBy   String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  campaigns   Campaign[]
+  
+  @@map("form_templates")
+}
+
+model CampaignTeam {
+  id          String   @id @default(cuid())
+  campaignId  String
+  teamId      String
+  createdAt   DateTime @default(now())
+  
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  team        Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  
+  @@unique([campaignId, teamId])
+  @@map("campaign_teams")
+}
+
+model CampaignQC {
+  id          String   @id @default(cuid())
+  campaignId  String
+  qcUserId    String
+  createdAt   DateTime @default(now())
+  
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  qcAgent     User     @relation("CampaignQC", fields: [qcUserId], references: [id], onDelete: Cascade)
+  
+  @@unique([campaignId, qcUserId])
+  @@map("campaign_qc")
+}
+
+model Lead {
+  id                      String   @id @default(cuid())
+  serialNumber            String   @unique
+  campaignId              String?
+  agentId                 String
+  teamId                  String
+  homeownerFirst          String
+  homeownerLast           String
+  phone                   String
+  email                   String?
+  bedrooms                Int
+  bathrooms               Int
+  marketValue             Float
+  askingPrice             Float?
+  negotiable              String?
+  license                 String?
+  propertyType            String?
+  sellingReason           String?
+  ownershipTimelineValue  Int?
+  ownershipTimelineUnit   String?
+  listingStatus           ListingStatus
+  occupancy               OccupancyStatus
+  mortgageYesNo           Boolean
+  mortgageAmount          Float?
+  closingTimeline         ClosingTimeline
+  addressText             String
+  motivationRating        Int      // 1-10
+  conditionRating         Int      // 1-10
+  additionalInfo          String?
+  customFields            Json?    // Store custom field values from templates
+  submitCheckboxFlag      Boolean
+  status                  LeadStatus @default(Pending)
+  qcUserId                String?
+  qcComment               String?
+  assignedUserId          String?  // Assigned to ClientTeamMember
+  temperature             LeadTemperature?
+  overrideQualified       Boolean  @default(false)
+  overrideReason          String?
+  callRecordingUrl        String?
+  recordingDuration       Int?
+  starred                 Boolean  @default(false)
+  clientReviewed          Boolean  @default(false)
+  pipelineStage           String?  @default("Attempting Contact")
+  taskQualityIndicator    String?  // 'green', 'orange', 'red' - visual indicator from task completion
+  taskQualityStage        String?  // pipeline stage when quality was set
+  archived                Boolean  @default(false)
+  archivedAt              DateTime?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  
+  // Relations
+  campaign                Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  agent                   User      @relation("AgentLeads", fields: [agentId], references: [id], onDelete: Cascade)
+  team                    Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  qcAgent                 User?    @relation("QCLeads", fields: [qcUserId], references: [id], onDelete: SetNull)
+  auditTrails             LeadAudit[]
+  notes                   LeadNote[]
+  clientNotes             ClientNote[]
+  schedules               ClientSchedule[]
+  assignedTeamMember      ClientTeamMember? @relation("AssignedTeamMember", fields: [assignedUserId], references: [id], onDelete: SetNull)
+  tasks                   Task[]
+  stageQualities          LeadStageQuality[] @relation("LeadStageQualities")
+  
+  // Performance indexes
+  @@index([phone])
+  @@index([addressText])
+  @@index([createdAt])
+  @@index([status])
+  @@index([campaignId, status, createdAt])
+  @@index([agentId, createdAt])
+  @@index([teamId, createdAt])
+  @@index([qcUserId, status])
+  
+  @@map("leads")
+}
+
+model LeadNote {
+  id        String   @id @default(cuid())
+  leadId    String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+  
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("lead_notes")
+}
+
+model ClientNote {
+  id           String   @id @default(cuid())
+  leadId       String
+  clientId     String
+  content      String
+  recordingUrl String?
+  authorName   String?
+  authorType   String?  // 'client' or 'team_member'
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  client    User     @relation("ClientNotes", fields: [clientId], references: [id], onDelete: Cascade)
+  
+  @@map("client_notes")
+}
+
+model ClientSchedule {
+  id              String   @id @default(cuid())
+  leadId          String
+  clientId        String
+  scheduledDate   DateTime
+  type            ScheduleType
+  status          ScheduleStatus @default(SCHEDULED)
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  lead            Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  client          User     @relation("ClientSchedules", fields: [clientId], references: [id], onDelete: Cascade)
+  
+  @@map("client_schedules")
+}
+
+model PipelineStage {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  displayName String
+  order       Int
+  positionId  String?  // Position that handles this stage
+  isActive    Boolean  @default(true)
+  isSystem    Boolean  @default(false) // System stages (Closed, Dead) cannot be deleted
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  position    Position? @relation("StagePosition", fields: [positionId], references: [id], onDelete: SetNull)
+  
+  @@map("pipeline_stages")
+}
+
+model LeadAudit {
+  id        String   @id @default(cuid())
+  leadId    String
+  userId    String
+  action    AuditAction
+  payload   Json
+  createdAt DateTime @default(now())
+  
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("lead_audits")
+}
+
+model LeaveRequest {
+  id        String         @id @default(cuid())
+  userId    String
+  startDate DateTime
+  endDate   DateTime
+  type      LeaveType
+  reason    String
+  status    LeaveStatus    @default(Pending)
+  managerId String?
+  createdAt DateTime       @default(now())
+  
+  user      User           @relation("LeaveRequestUser", fields: [userId], references: [id], onDelete: Cascade)
+  manager   User?          @relation("LeaveRequestManager", fields: [managerId], references: [id], onDelete: SetNull)
+  
+  @@map("leave_requests")
+}
+
+enum UserRole {
+  Agent
+  SeniorAgent
+  QualityControl
+  TeamLeader
+  AccountManager
+  Manager
+  Client
+  IT
+}
+
+enum LeadStatus {
+  Pending
+  Qualified
+  Disqualified
+  Duplicate
+  Callback
+}
+
+enum LeadTemperature {
+  Hot
+  Warm
+  Cold
+  NoAskingPrice
+}
+
+enum ListingStatus {
+  ListedByOwner
+  ListedByRealtor
+  NotListed
+}
+
+enum OccupancyStatus {
+  OwnerOccupied
+  RentedMTM
+  RentedAnnually
+  Vacant
+}
+
+enum ClosingTimeline {
+  Asap
+  Anytime
+  ThirtyDays
+  SixtyDays
+  NinetyDays
+  SixMonths
+}
+
+enum AuditAction {
+  Create
+  Update
+  StatusChange
+  NoteAdded
+}
+
+enum LeaveType {
+  Vacation
+  Sick
+  Other
+}
+
+enum LeaveStatus {
+  Pending
+  Approved
+  Declined
+}
+
+enum ScheduleType {
+  CALL
+  APPOINTMENT
+}
+
+enum ScheduleStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+}
+
+model SystemSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  category  String
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+  
+  @@map("system_settings")
+}
+
+
+model DailyTopAgent {
+  id              String   @id @default(cuid())
+  date            DateTime // The work day date (4 AM to 4 AM)
+  teamId          String
+  topAgentId      String
+  topAgentName    String
+  totalLeads      Int
+  qualified       Int
+  disqualified    Int
+  createdAt       DateTime @default(now())
+  
+  team            Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  topAgent        User     @relation(fields: [topAgentId], references: [id], onDelete: Cascade)
+  
+  @@unique([date, teamId])
+  @@map("daily_top_agents")
+}
+
+
+model LoginHistory {
+  id              String   @id @default(cuid())
+  userId          String
+  loginDate       DateTime // The work day date (4 AM to 4 AM)
+  loginTime       DateTime // Actual login timestamp
+  latenessMinutes Int      @default(0)
+  createdAt       DateTime @default(now())
+  
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, loginDate])
+  @@index([loginDate])
+  @@index([userId, loginDate])
+  @@map("login_history")
+}
+
+// IT Support System Models
+
+model ITTicket {
+  id                String          @id @default(cuid())
+  agentName         String
+  telegramUsername  String
+  problemDescription String         @db.Text
+  status            ITTicketStatus  @default(Pending)
+  submitterId       String
+  assignedITId      String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  resolvedAt        DateTime?
+  
+  // Relations
+  submitter         User            @relation("TicketSubmitter", fields: [submitterId], references: [id], onDelete: Cascade)
+  assignedIT        User?           @relation("AssignedITTickets", fields: [assignedITId], references: [id], onDelete: SetNull)
+  responses         ITTicketResponse[]
+  statusHistory     ITTicketStatusHistory[]
+  
+  @@index([status])
+  @@index([submitterId])
+  @@index([assignedITId])
+  @@index([createdAt])
+  @@index([status, createdAt])
+  
+  @@map("it_tickets")
+}
+
+model ITTicketResponse {
+  id          String   @id @default(cuid())
+  ticketId    String
+  userId      String
+  responseText String  @db.Text
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  ticket      ITTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user        User     @relation("ITTicketResponses", fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("it_ticket_responses")
+}
+
+model ITTicketStatusHistory {
+  id          String          @id @default(cuid())
+  ticketId    String
+  userId      String
+  fromStatus  ITTicketStatus?
+  toStatus    ITTicketStatus
+  createdAt   DateTime        @default(now())
+  
+  // Relations
+  ticket      ITTicket        @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user        User            @relation("ITTicketStatusChanges", fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("it_ticket_status_history")
+}
+
+model ITAssignment {
+  id                String   @id @default(cuid())
+  itUserId          String
+  accountManagerId  String
+  createdAt         DateTime @default(now())
+  
+  // Relations
+  itUser            User     @relation("ITAssignments", fields: [itUserId], references: [id], onDelete: Cascade)
+  accountManager    User     @relation("AccountManagerITAssignments", fields: [accountManagerId], references: [id], onDelete: Cascade)
+  
+  @@unique([itUserId, accountManagerId])
+  @@map("it_assignments")
+}
+
+enum ITTicketStatus {
+  Pending
+  UnderReview
+  Solved
+  NotSolved
+}
+
+// ============================================
+// CLIENT TEAM MANAGEMENT SYSTEM
+// ============================================
+
+model Position {
+  id              String   @id @default(cuid())
+  clientId        String
+  title           String
+  description     String?
+  permissionSet   Json     // Permissions for this position
+  isActive        Boolean  @default(true)
+  lastAssignedIndex Int    @default(0)  // For round-robin assignment
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  client          User     @relation("ClientPositions", fields: [clientId], references: [id], onDelete: Cascade)
+  teamMembers     ClientTeamMember[]
+  stages          PipelineStage[] @relation("StagePosition")
+  
+  @@unique([clientId, title])
+  @@map("positions")
+}
+
+model ClientTeamMember {
+  id              String   @id @default(cuid())
+  clientId        String
+  positionId      String?
+  name            String
+  email           String   @unique
+  passwordHash    String
+  positionTitle   String   // Keep for backward compatibility
+  status          ClientTeamMemberStatus @default(active)
+  isAvailable     Boolean  @default(true) // For day-off / availability management
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  client          User     @relation("ClientTeamMembers", fields: [clientId], references: [id], onDelete: Cascade)
+  position        Position? @relation(fields: [positionId], references: [id], onDelete: SetNull)
+  assignedLeads   Lead[]   @relation("AssignedTeamMember")
+  assignedTasks   Task[]   @relation("AssignedTasks")
+  createdTasks    Task[]   @relation("CreatedTasks")
+  activityLogs    ActivityLog[]
+  notifications   Notification[] @relation("NotificationRecipient")
+  sentNotifications Notification[] @relation("NotificationSender")
+  
+  @@map("client_team_members")
+}
+
+model Task {
+  id                String   @id @default(cuid())
+  clientId          String
+  leadId            String
+  assignedUserId    String
+  createdByUserId   String
+  createdByType     TaskCreatorType @default(client)
+  title             String
+  description       String?  @db.Text
+  dueDate           DateTime
+  status            TaskStatus @default(pending)
+  completionNote    String?  @db.Text
+  qualityRating     String?  // 'green', 'orange', 'red'
+  createdAt         DateTime @default(now())
+  completedAt       DateTime?
+  
+  // Relations
+  client            User     @relation("ClientTasks", fields: [clientId], references: [id], onDelete: Cascade)
+  lead              Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  assignedUser      ClientTeamMember @relation("AssignedTasks", fields: [assignedUserId], references: [id], onDelete: Cascade)
+  createdBy         ClientTeamMember @relation("CreatedTasks", fields: [createdByUserId], references: [id], onDelete: Cascade)
+  
+  @@map("tasks")
+}
+
+model PipelineAutomationRule {
+  id              String   @id @default(cuid())
+  clientId        String
+  pipelineStage   String
+  ruleConfig      Json
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  client          User     @relation("ClientAutomationRules", fields: [clientId], references: [id], onDelete: Cascade)
+  
+  @@map("pipeline_automation_rules")
+}
+
+model ActivityLog {
+  id              String   @id @default(cuid())
+  clientId        String
+  userId          String?
+  userType        ActivityUserType
+  actionType      ActivityActionType
+  entityType      ActivityEntityType
+  entityId        String
+  description     String   @db.Text
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  
+  // Relations
+  client          User     @relation("ClientActivityLogs", fields: [clientId], references: [id], onDelete: Cascade)
+  teamMember      ClientTeamMember? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  @@map("activity_logs")
+}
+
+model Notification {
+  id              String   @id @default(cuid())
+  recipientId     String
+  senderId        String?
+  type            NotificationType
+  title           String
+  message         String   @db.Text
+  entityType      String?
+  entityId        String?
+  isRead          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  readAt          DateTime?
+  
+  // Relations
+  recipient       ClientTeamMember @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  sender          ClientTeamMember? @relation("NotificationSender", fields: [senderId], references: [id], onDelete: SetNull)
+  
+  @@map("notifications")
+}
+
+model LeadStageQuality {
+  id            String   @id @default(cuid())
+  leadId        String
+  pipelineStage String
+  qualityRating String   // 'green', 'orange', 'red'
+  ratedAt       DateTime @default(now())
+  ratedBy       String   // Team member ID
+  ratedByName   String   // Team member name for display
+  
+  // Relations
+  lead          Lead     @relation("LeadStageQualities", fields: [leadId], references: [id], onDelete: Cascade)
+  
+  @@unique([leadId, pipelineStage])
+  @@index([leadId])
+  @@index([pipelineStage])
+  @@map("lead_stage_qualities")
+}
+
+// ============================================
+// ENUMS
+// ============================================
+
+enum ClientTeamMemberStatus {
+  active
+  inactive
+}
+
+enum TaskStatus {
+  pending
+  completed
+  archived
+}
+
+enum TaskCreatorType {
+  client
+  team_member
+  automation
+}
+
+enum ActivityUserType {
+  client
+  team_member
+}
+
+enum ActivityActionType {
+  task_assigned
+  task_completed
+  task_created
+  pipeline_changed
+  note_added
+  schedule_added
+  lead_assigned
+  team_member_created
+  team_member_updated
+  team_member_deleted
+  automation_rule_created
+  automation_rule_updated
+  automation_rule_deleted
+}
+
+enum ActivityEntityType {
+  task
+  lead
+  note
+  schedule
+  team_member
+  automation_rule
+}
+
+enum NotificationType {
+  task_assigned
+  task_completed
+  lead_assigned
+  mention
+  system
+}

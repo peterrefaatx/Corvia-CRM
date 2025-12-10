@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corvia | Premium Real Estate Lead Generation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #1a365d;
+            --primary-dark: #0f2040;
+            --primary-light: #2d4a7c;
+            --accent: #d4af37;
+            --accent-dark: #b8941f;
+            --accent-light: #e6c85a;
+            --text: #2d3748;
+            --text-light: #718096;
+            --background: #ffffff;
+            --background-alt: #f7fafc;
+            --border: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover:before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .btn-large {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            color: white;
+            padding: 180px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.03)" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background-color: var(--background-alt);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .trust-bar p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-logo {
+            font-weight: 700;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .trust-logo:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        /* Problem Solution Section */
+        .problem-solution {
+            padding: 100px 0;
+            background-color: var(--background);
+        }
+
+        .ps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .problem, .solution {
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            height: 100%;
+            transition: var(--transition);
+        }
+
+        .problem:hover, .solution:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .problem {
+            background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+            border-left: 6px solid #e53e3e;
+        }
+
+        .solution {
+            background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
+            border-left: 6px solid #38a169;
+        }
+
+        .problem h3, .solution h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.8rem;
+        }
+
+        .problem-list, .solution-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .problem-list li, .solution-list li {
+            padding: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .problem-list li:before {
+            content: "✕";
+            color: #e53e3e;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .solution-list li:before {
+            content: "✓";
+            color: #38a169;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background-color: var(--background-alt);
+            position: relative;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            position: relative;
+        }
+
+        .steps:before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+            z-index: 0;
+        }
+
+        .step {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Call Recordings Section */
+        .call-recordings {
+            padding: 100px 0;
+            background-color: var(--background);
+        }
+
+        .recordings-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .recording-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .recording-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .recording-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .recording-icon {
+            font-size: 1.5rem;
+        }
+
+        .recording-content {
+            padding: 2rem;
+        }
+
+        .recording-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        .play-btn {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-right: 1rem;
+        }
+
+        .play-btn:hover {
+            background: var(--accent-dark);
+            transform: scale(1.1);
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .progress {
+            position: absolute;
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--background-alt);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .testimonial:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .testimonial:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 5rem;
+            color: var(--accent-light);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+
+        .author-info p {
+            margin: 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.05)" points="0,0 1000,800 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .final-cta h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .final-cta h2:after {
+            background: var(--accent);
+        }
+
+        .final-cta p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .ps-grid, .recordings-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .steps:before {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--background);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .trust-logos {
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo" style="letter-spacing: 0.15em;">
+                    CORVIA
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#recordings">Results</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="http://localhost:5173" class="btn btn-primary" style="padding: 8px 20px;">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Premium Lead Generation for Elite Real Estate Investors</h1>
+                <p>We deliver highly qualified, appointment-set leads so you can focus on closing deals and scaling your portfolio. Our expert cold callers become an extension of your team.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary btn-large">
+                        <i class="fas fa-calendar-check"></i>
+                        Book Strategy Session
+                    </a>
+                    <a href="#recordings" class="btn btn-secondary btn-large">
+                        <i class="fas fa-headphones"></i>
+                        Hear Our Calls
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">247%</div>
+                        <div class="stat-label">Average ROI Increase</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5,000+</div>
+                        <div class="stat-label">Leads Delivered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Client Retention</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="container">
+            <p>Trusted by Top Real Estate Investment Firms</p>
+            <div class="trust-logos">
+                <div class="trust-logo">Apex Capital Group</div>
+                <div class="trust-logo">Elite Property Investors</div>
+                <div class="trust-logo">Metro REI Fund</div>
+                <div class="trust-logo">Heritage Holdings</div>
+                <div class="trust-logo">Summit Ventures</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Solution Section -->
+    <section class="problem-solution" id="services">
+        <div class="container">
+            <h2>The Investor's Dilemma, Solved</h2>
+            <p class="section-subtitle">Real estate investing success hinges on consistent deal flow. We eliminate your biggest bottleneck by delivering qualified, motivated sellers directly to you.</p>
+            <div class="ps-grid">
+                <div class="problem">
+                    <h3><i class="fas fa-exclamation-triangle"></i> The Struggle Is Real</h3>
+                    <ul class="problem-list">
+                        <li>Wasting hours on unqualified leads that go nowhere</li>
+                        <li>Ineffective cold calling with terrible conversion rates</li>
+                        <li>Inconsistent deal flow preventing portfolio growth</li>
+                        <li>High customer acquisition costs killing your ROI</li>
+                        <li>Missing prime off-market opportunities</li>
+                        <li>Team members distracted by lead generation</li>
+                    </ul>
+                </div>
+                <div class="solution">
+                    <h3><i class="fas fa-check-circle"></i> The Corvia Solution</h3>
+                    <ul class="solution-list">
+                        <li>Only pre-qualified, motivated seller leads</li>
+                        <li>Expert agents trained in REI persuasion tactics</li>
+                        <li>Guaranteed monthly lead delivery</li>
+                        <li>Appointment-setting, not just cold calls</li>
+                        <li>Exclusive access to off-market deals</li>
+                        <li>Predictable pipeline of qualified opportunities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="process">
+            <div class="container">
+                <h2>Our Proven 3-Step Process</h2>
+                <p class="section-subtitle">We've streamlined lead generation into a predictable, scalable system that delivers consistent results for investors nationwide.</p>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Strategic Targeting</h3>
+                        <p>We analyze your ideal buyer criteria and build hyper-targeted lists of motivated sellers using proprietary data sources and market intelligence.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Expert Engagement</h3>
+                        <p>Our specialized agents make thousands of calls using proven REI scripts, qualifying leads and setting appointments with ready-to-sell property owners.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Seamless Handoff</h3>
+                        <p>You receive warm, appointment-set leads directly in your CRM. We provide detailed notes and context so you can focus on closing deals, not finding them.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call Recordings Section -->
+        <section class="call-recordings" id="recordings">
+        <div class="container">
+            <h2>Hear Our Expert Callers In Action</h2>
+            <div class="recordings-container">
+                <div class="recording-card">
+                    <div class="recording-content">
+                        <p style="font-weight: 600; color: var(--primary); margin-bottom: 1rem; font-size: 1.1rem;">Agent: Peter</p>
+                        <div class="audio-controls">
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="recording-card">
+                    <div class="recording-content">
+                        <p style="font-weight: 600; color: var(--primary); margin-bottom: 1rem; font-size: 1.1rem;">Agent: Sarah</p>
+                        <div class="audio-controls">
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>What Our Clients Say</h2>
+            <p class="section-subtitle">Don't just take our word for it. Here's what real estate investors are saying about their experience working with Corvia.</p>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "Corvia transformed our business. We went from inconsistent deal flow to acquiring 3-4 properties monthly. Their leads are exceptionally qualified and their team feels like an extension of our own."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <h4>Michael Johnson</h4>
+                            <p>Elite Property Investors</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "I've tried multiple lead generation services, but none compare to Corvia. Their understanding of real estate investing and ability to find motivated sellers is unparalleled. Our ROI has increased by over 300%."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div class="author-info">
+                            <h4>Sarah Rodriguez</h4>
+                            <p>Metro REI Group</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "The quality of leads from Corvia is exceptional. We're closing deals at a much higher rate because their callers properly qualify and prepare sellers. This service pays for itself many times over."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DC</div>
+                        <div class="author-info">
+                            <h4>David Chen</h4>
+                            <p>Capital Ventures Fund</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Deal Flow?</h2>
+                <p>Stop wasting time on unqualified leads. Let us fill your pipeline with motivated sellers while you focus on closing deals and scaling your portfolio.</p>
+                <a href="#contact" class="btn btn-primary btn-large">
+                    <i class="fas fa-phone-alt"></i>
+                    Schedule Your Free Strategy Call
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Corvia</h3>
+                    <p>Premium lead generation for elite real estate investors. We deliver qualified, appointment-set leads so you can focus on closing deals and scaling your portfolio.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cold Calling</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Lead Qualification</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Appointment Setting</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> CRM Integration</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Our Process</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Case Studies</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> leads@corvia.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Serving Investors Nationwide</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Corvia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Audio player functionality
+        document.querySelectorAll('.play-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const progressBar = this.nextElementSibling.querySelector('.progress');
+                const isPlaying = this.classList.contains('playing');
+
+                if (isPlaying) {
+                    this.innerHTML = '<i class="fas fa-play"></i>';
+                    this.classList.remove('playing');
+                    progressBar.style.width = '0%';
+                } else {
+                    this.innerHTML = '<i class="fas fa-pause"></i>';
+                    this.classList.add('playing');
+                    // Simulate audio playback
+                    let width = 0;
+                    const interval = setInterval(() => {
+                        if (width >= 100) {
+                            clearInterval(interval);
+                            this.innerHTML = '<i class="fas fa-play"></i>';
+                            this.classList.remove('playing');
+                        } else {
+                            width++;
+                            progressBar.style.width = width + '%';
+                        }
+                    }, 100);
+                }
+            });
+        });
+
+        // Progress bar click functionality
+        document.querySelectorAll('.progress-bar').forEach(bar => {
+            bar.addEventListener('click', function(e) {
+                const progress = this.querySelector('.progress');
+                const rect = this.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const width = this.clientWidth;
+                const percentage = (clickX / width) * 100;
+
+                progress.style.width = percentage + '%';
+            });
+        });
+    </script>
+</body>
+</html>

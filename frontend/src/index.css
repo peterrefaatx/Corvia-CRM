@@ -1,0 +1,561 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Navigation Active States */
+.nav-active {
+  background-color: #e5e7eb; /* Light gray for main navigation */
+}
+
+.nav-option-active {
+  background-color: #f3f4f6; /* Lighter gray for dropdown options */
+}
+
+/* Navigation Background Colors */
+.nav-sidebar {
+  background-color: #f5f5f5; /* Light gray background for sidebar */
+}
+
+.nav-user-section {
+  background-color: #eeeeee; /* Slightly darker gray for user section */
+}
+
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.02);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+@font-face {
+  font-family: 'Momo Trust Display';
+  src: url('./assets/fonts/MomoTrustDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ChangaOne';
+  src: url('./assets/fonts/ChangaOne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@font-face {
+  font-family: 'Noto Serif';
+  src: url('./assets/fonts/NotoSerif-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Skranji';
+  src: url('./assets/fonts/Skranji-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Clash Grotesk';
+  src: url('/fonts/ClashGrotesk-Variable.woff2') format('woff2'),
+       url('/fonts/ClashGrotesk-Variable.woff') format('woff');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik Pro';
+  src: url('./assets/fonts/AeonikPro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik Pro';
+  src: url('./assets/fonts/AeonikPro-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik Pro';
+  src: url('./assets/fonts/AeonikPro-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik Pro';
+  src: url('./assets/fonts/AeonikPro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #FAFAFA;
+  font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+}
+
+
+
+
+
+/* Scrollbar styling - Default thin scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+  border: 2px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Pipeline scrollbar - Modern, refined style */
+.pipeline-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.pipeline-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.pipeline-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.pipeline-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0891b2;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.pipeline-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox scrollbar */
+.pipeline-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Glass morphism effects */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .gradient-mint {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  }
+
+  .gradient-mint-subtle {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+  }
+
+  .shadow-glass {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .shadow-gentle {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-subtle {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Mint color utilities */
+@layer utilities {
+  .text-mint-600 {
+    color: #059669;
+  }
+
+  .text-mint-700 {
+    color: #047857;
+  }
+
+  .bg-mint-50 {
+    background-color: #f0fdf4;
+  }
+
+  .bg-mint-100 {
+    background-color: #dcfce7;
+  }
+
+  .bg-mint-200 {
+    background-color: #bbf7d0;
+  }
+
+  .bg-mint-300 {
+    background-color: #86efac;
+  }
+
+  .bg-mint-500 {
+    background-color: #10b981;
+  }
+
+  .border-mint-200 {
+    border-color: #bbf7d0;
+  }
+
+  .border-mint-400 {
+    border-color: #34d399;
+  }
+
+  .ring-mint-400 {
+    --tw-ring-color: #34d399;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Unified Font - Satoshi */
+@layer utilities {
+  .font-display {
+    font-family: 'Satoshi', system-ui, sans-serif;
+  }
+}
+
+/* Satoshi for all elements with weights (300-900) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-weight: 700;
+}
+
+p, li, span, table, .data-display {
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-weight: 400;
+}
+
+button, .btn {
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-weight: 500;
+}
+
+input, textarea, select {
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-weight: 400;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Premium glassmorphism effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Smooth gradient animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Global Primary Color Classes - Change these to update all primary colors at once */
+.bg-primary {
+  background-color: #4A70A9;
+}
+
+.bg-primary-hover:hover {
+  background-color: #3d5d8f;
+}
+
+.text-primary {
+  color: #4A70A9;
+}
+
+.text-primary-hover:hover {
+  color: #3d5d8f;
+}
+
+.border-primary {
+  border-color: #4A70A9;
+}
+
+.ring-primary {
+  --tw-ring-color: #4A70A9;
+}
+
+.bg-primary-light {
+  background-color: #e3ebf5;
+}
+
+.bg-primary-light-hover:hover {
+  background-color: #d0dded;
+}
+
+/* Button variants */
+.btn-primary {
+  background-color: #4A70A9;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #3d5d8f;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading Progress Bar Animation */
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progress {
+  animation: progress 1.5s ease-in-out infinite;
+}

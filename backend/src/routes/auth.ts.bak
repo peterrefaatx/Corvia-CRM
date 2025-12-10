@@ -1,0 +1,340 @@
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { body, validationResult } from 'express-validator';
+import rateLimit from 'express-rate-limit';
+import { auth } from '../middleware/auth';
+import { config } from '../config';
+import prisma from '../lib/prisma';
+import { getNowInTimezone, getWorkDayDate, formatTime12Hour } from '../utils/timezone';
+import { recordLoginHistory, hasLoggedInToday } from '../utils/loginHistory';
+
+const router = express.Router();
+
+// Rate limiter for login endpoint - 5 attempts per 15 minutes
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 requests per window
+  message: 'Too many login attempts, please try again after 15 minutes',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Login
+router.post('/login', loginLimiter, [
+  body('username').notEmpty().withMessage('Username is required'),
+  body('password').notEmpty().withMessage('Password is required')
+], async (req: any, res: any) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { username, password } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: { username },
+      include: { 
+        team: {
+          include: {
+            teamLeader: {
+              select: {
+                id: true,
+                fullName: true,
+                username: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // User must exist in database
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    if (!user.isActive) {
+      return res.status(401).json({ error: 'Account is deactivated' });
+    }
+
+    const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+    if (!isValidPassword) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Calculate login time properly using Cairo timezone
+    // This works regardless of server timezone
+    const nowCairo = getNowInTimezone(); // Get current time in Cairo
+    const loginHour = nowCairo.getHours();
+    const loginMinute = nowCairo.getMinutes();
+    
+    // Calculate "today" based on 4 AM cutoff in Cairo time
+    const today = getWorkDayDate(); // Handles 4 AM cutoff automatically
+    
+    // Store actual time for database (will be in server's local timezone)
+    const now = new Date();
+    
+    // Check if this is the first login of the day (based on 4 AM cutoff)
+    const lastLoginDate = user.lastLoginDate ? new Date(user.lastLoginDate) : null;
+    let isFirstLoginToday = true;
+    
+    if (lastLoginDate) {
+      const lastLoginDay = new Date(lastLoginDate);
+      lastLoginDay.setHours(0, 0, 0, 0);
+      isFirstLoginToday = lastLoginDay.getTime() !== today.getTime();
+    }
+    
+    let todayLoginTime = user.todayLoginTime;
+    let todayLatenessMinutes = user.todayLatenessMinutes || 0;
+    
+    // Only track for non-Manager and non-Client roles AND only on first login of the day
+    if ((user.role !== 'Manager' && user.role !== 'Client') && isFirstLoginToday) {
+      // If user logs in before 4:45 PM, set login time to 4:45 PM
+      if (loginHour < 16 || (loginHour === 16 && loginMinute < 45)) {
+        // Set to 4:45 PM
+        const loginTime = new Date(today);
+        loginTime.setHours(16, 45, 0, 0);
+        todayLoginTime = loginTime;
+      } else {
+        todayLoginTime = now;
+      }
+      
+      todayLatenessMinutes = 0;
+      
+      // Work day starts at 4:00 PM, on-time window is 4:00 PM - 5:00 PM
+      // If logged in after 5:00 PM, calculate lateness from 5:00 PM
+      if (loginHour > 17 || (loginHour === 17 && loginMinute > 0)) {
+        // Calculate lateness from 5:00 PM
+        const lateMinutes = (loginHour - 17) * 60 + loginMinute;
+        todayLatenessMinutes = lateMinutes;
+      }
+    }
+    
+    // Update last login and login tracking (only update login time on first login of the day)
+    const updateData: any = { 
+      lastLogin: now,
+      lastLoginDate: today
+    };
+    
+    // Only update login time fields if this is the first login of the day
+    if (isFirstLoginToday && user.role !== 'Manager' && user.role !== 'Client') {
+      updateData.todayLoginTime = todayLoginTime;
+      updateData.todayLatenessMinutes = todayLatenessMinutes;
+      
+      // 🎯 IMMEDIATELY record login history for accurate attendance
+      // This ensures data is never lost, even if daily job fails
+      await recordLoginHistory({
+        userId: user.id,
+        loginTime: todayLoginTime!,
+        latenessMinutes: todayLatenessMinutes
+      });
+    }
+    
+    await prisma.user.update({
+      where: { id: user.id },
+      data: updateData
+    });
+
+    const token = jwt.sign(
+      { userId: user.id, role: user.role, teamId: user.teamId },
+      config.jwtSecret,
+      { expiresIn: '24h' }
+    );
+
+    const refreshToken = jwt.sign(
+      { userId: user.id },
+      config.jwtRefreshSecret,
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      accessToken: token,
+      refreshToken,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        fullName: user.fullName,
+        team: user.team ? {
+          id: user.team.id,
+          name: user.team.name,
+          teamLeader: user.team.teamLeader
+        } : null
+      }
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Refresh token
+router.post('/refresh', async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+    
+    if (!refreshToken) {
+      return res.status(401).json({ error: 'Refresh token required' });
+    }
+
+    const decoded = jwt.verify(refreshToken, config.jwtRefreshSecret) as any;
+    
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+      include: { team: true }
+    });
+
+    if (!user || !user.isActive) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+
+    const newToken = jwt.sign(
+      { userId: user.id, role: user.role },
+      config.jwtSecret,
+      { expiresIn: '24h' }
+    );
+
+    res.json({ accessToken: newToken });
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid refresh token' });
+  }
+});
+
+// Get current user
+router.get('/me', auth, async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: (req as any).user.userId },
+      include: { 
+        team: {
+          include: {
+            teamLeader: {
+              select: {
+                id: true,
+                fullName: true,
+                username: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Check if we need to reset login tracking for a new day (based on 4 AM Cairo cutoff)
+    const today = getWorkDayDate(); // Get today's work day in Cairo timezone
+    
+    const lastLoginDate = user.lastLoginDate ? new Date(user.lastLoginDate) : null;
+    
+    if (lastLoginDate) {
+      const lastLoginDay = new Date(lastLoginDate);
+      lastLoginDay.setHours(0, 0, 0, 0);
+      
+      if (lastLoginDay.getTime() !== today.getTime()) {
+        // Reset login tracking for new day
+        await prisma.user.update({
+          where: { id: user.id },
+          data: {
+            todayLoginTime: null,
+            todayLatenessMinutes: 0
+          }
+        });
+        user.todayLoginTime = null;
+        user.todayLatenessMinutes = 0;
+      }
+    }
+
+    res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      fullName: user.fullName,
+      todayLoginTime: user.todayLoginTime,
+      todayLatenessMinutes: user.todayLatenessMinutes,
+      accountManagerId: user.accountManagerId,
+      team: user.team ? {
+        id: user.team.id,
+        name: user.team.name,
+        teamLeader: user.team.teamLeader
+      } : null
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Get login tracking data for current user
+router.get('/login-tracking', auth, async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: (req as any).user.userId },
+      select: {
+        todayLoginTime: true,
+        todayLatenessMinutes: true,
+        lastLoginDate: true
+      }
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Check if we need to reset login tracking for a new day (based on 4 AM Cairo cutoff)
+    const today = getWorkDayDate(); // Get today's work day in Cairo timezone
+    
+    const lastLoginDate = user.lastLoginDate ? new Date(user.lastLoginDate) : null;
+    
+    // If it's a new day, return null values
+    if (lastLoginDate) {
+      const lastLoginDay = new Date(lastLoginDate);
+      lastLoginDay.setHours(0, 0, 0, 0);
+      
+      if (lastLoginDay.getTime() !== today.getTime()) {
+        return res.json({
+          loginTime: null,
+          latenessMinutes: 0
+        });
+      }
+    }
+
+    // Format login time as 12-hour format with AM/PM
+    let loginTimeFormatted = null;
+    if (user.todayLoginTime) {
+      const loginTime = new Date(user.todayLoginTime);
+      
+      // Format in 12-hour format
+      const hours24 = loginTime.getHours();
+      const minutes = loginTime.getMinutes().toString().padStart(2, '0');
+      const period = hours24 >= 12 ? 'PM' : 'AM';
+      const hours12 = hours24 % 12 || 12;
+      loginTimeFormatted = `${hours12.toString().padStart(2, '0')}:${minutes} ${period}`;
+    }
+
+    res.json({
+      loginTime: loginTimeFormatted,
+      latenessMinutes: user.todayLatenessMinutes || 0
+    });
+  } catch (error) {
+    console.error('Login tracking error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Forgot password (stub)
+router.post('/forgot-password', [
+  body('email').isEmail().withMessage('Valid email required')
+], async (req: any, res: any) => {
+  // In production, this would send a password reset email
+  res.json({ message: 'If an account with that email exists, a reset link has been sent' });
+});
+
+export { router as authRoutes }; 
+ 
+

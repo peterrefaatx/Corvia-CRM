@@ -1,0 +1,1045 @@
+{
+  "systemSettings": [
+    {
+      "id": "cmi047svn00021v1pfhdakhqh",
+      "key": "leadManagement",
+      "value": {
+        "normalizePhone": true,
+        "pendingPersist": true,
+        "autoArchiveDays": 0,
+        "callbackPersist": true,
+        "fuzzyAddressMatch": false,
+        "duplicateCheckPhone": true,
+        "qualifiedVisibleDays": 1,
+        "duplicateCheckAddress": true
+      },
+      "category": "leadManagement",
+      "updatedAt": "2025-11-18T10:46:15.813Z",
+      "updatedBy": "cmhscgr8q00028b610so3x2x0"
+    },
+    {
+      "id": "cmi047svd00001v1pq9yspp7u",
+      "key": "company",
+      "value": {
+        "logo": "",
+        "name": "Corvia CRM",
+        "email": "",
+        "phone": "",
+        "address": "",
+        "currency": "EGP",
+        "timezone": "Africa/Cairo",
+        "primaryColor": "#06b6d4",
+        "secondaryColor": "#10b981"
+      },
+      "category": "company",
+      "updatedAt": "2025-11-18T10:46:15.816Z",
+      "updatedBy": "cmhscgr8q00028b610so3x2x0"
+    },
+    {
+      "id": "cmi047syp00041v1p3uhssstx",
+      "key": "backup",
+      "value": {
+        "autoBackup": true,
+        "backupTime": "03:00",
+        "lastBackup": "2025-11-20T02:00:00.218Z",
+        "keepBackupDays": 30,
+        "keepYearlyBackups": 999,
+        "keepMonthlyBackups": 24
+      },
+      "category": "backup",
+      "updatedAt": "2025-11-20T02:00:00.220Z",
+      "updatedBy": "cmhscgr8q00028b610so3x2x0"
+    },
+    {
+      "id": "cmi047szj00051v1peaim6b31",
+      "key": "workSchedule",
+      "value": {
+        "timezone": "Africa/Cairo",
+        "workEndTime": "02:00",
+        "workStartTime": "17:00",
+        "dailyResetTime": "04:00",
+        "monthlyResetDay": 1,
+        "monthlyResetTime": "04:00"
+      },
+      "category": "workSchedule",
+      "updatedAt": "2025-11-18T10:46:15.813Z",
+      "updatedBy": "cmhscgr8q00028b610so3x2x0"
+    },
+    {
+      "id": "cmi047sve00011v1puyapwf2w",
+      "key": "dataRetention",
+      "value": {
+        "autoArchive": false,
+        "pendingDays": 0,
+        "callbackDays": 0,
+        "duplicateDays": 30,
+        "qualifiedDays": 0,
+        "disqualifiedDays": 0,
+        "deleteArchivedAfterDays": 365
+      },
+      "category": "dataRetention",
+      "updatedAt": "2025-11-18T10:46:15.814Z",
+      "updatedBy": "cmhscgr8q00028b610so3x2x0"
+    },
+    {
+      "id": "cmi047svp00031v1paaf40rpf",
+      "key": "serialNumber",
+      "value": {
+        "prefix": "CR",
+        "separator": "",
+        "dateFormat": "YYYYMMDD",
+        "resetDaily": false,
+        "resetMonthly": true,
+        "counterDigits": 4
+      },
+      "category": "serialNumber",
+      "updatedAt": "2025-11-18T10:46:15.815Z",
+      "updatedBy": "cmhscgr8q00028b610so3x2x0"
+    },
+    {
+      "id": "cmi047szn00061v1pnylg3mtn",
+      "key": "dashboard",
+      "value": {
+        "levelNames": {
+          "agent": {
+            "level1": "BRONZE",
+            "level2": "SILVER",
+            "level3": "GOLD",
+            "level4": "PLATINUM"
+          },
+          "seniorAgent": {
+            "level1": "BRONZE",
+            "level2": "SILVER",
+            "level3": "GOLD",
+            "level4": "PLATINUM"
+          }
+        },
+        "leaderboard": {
+          "rankingBy": "qualified",
+          "showTeamRankings": true,
+          "showAgentRankings": true
+        },
+        "targetLevels": {
+          "agent": {
+            "level1": 40,
+            "level2": 60,
+            "level3": 80,
+            "level4": 100
+          },
+          "seniorAgent": {
+            "level1": 40,
+            "level2": 50,
+            "level3": 60,
+            "level4": 70
+          }
+        },
+        "monthlyOverview": {
+          "showTotal": true,
+          "showPending": false,
+          "showCallback": false,
+          "showDuplicate": true,
+          "showQualified": true,
+          "showDisqualified": true
+        },
+        "todayPerformance": {
+          "showTotal": true,
+          "showPending": true,
+          "showCallback": false,
+          "showDuplicate": true,
+          "showQualified": true,
+          "showDisqualified": true
+        }
+      },
+      "category": "dashboard",
+      "updatedAt": "2025-11-18T10:46:15.814Z",
+      "updatedBy": "cmhscgr8q00028b610so3x2x0"
+    }
+  ],
+  "pipelineStages": [
+    {
+      "id": "cmi4u3hfu0006i5yq2vsr0xp9",
+      "name": "Attempting Contact",
+      "displayName": "Attempting Contact",
+      "order": 1,
+      "isActive": true,
+      "isSystem": false,
+      "createdAt": "2025-11-18T17:15:07.914Z",
+      "updatedAt": "2025-11-18T17:15:07.914Z"
+    },
+    {
+      "id": "cmi4u3q6h0007i5yq52pfb0h3",
+      "name": "Contacted",
+      "displayName": "Contacted",
+      "order": 2,
+      "isActive": true,
+      "isSystem": false,
+      "createdAt": "2025-11-18T17:15:19.242Z",
+      "updatedAt": "2025-11-18T17:15:19.242Z"
+    },
+    {
+      "id": "cmi4u43p30008i5yqe5r53eg4",
+      "name": "Waiting for Offer",
+      "displayName": "Offer",
+      "order": 3,
+      "isActive": true,
+      "isSystem": false,
+      "createdAt": "2025-11-18T17:15:36.759Z",
+      "updatedAt": "2025-11-18T17:15:36.759Z"
+    },
+    {
+      "id": "cmi51qd4l0000120c16kql730",
+      "name": "Contract",
+      "displayName": "Contract",
+      "order": 4,
+      "isActive": true,
+      "isSystem": false,
+      "createdAt": "2025-11-18T20:48:52.725Z",
+      "updatedAt": "2025-11-18T20:48:52.725Z"
+    }
+  ],
+  "formTemplates": [
+    {
+      "id": "cmi5uahzi00022ba46rpt9jwo",
+      "name": "Testing",
+      "description": null,
+      "fields": [
+        {
+          "id": "field_1763546863785",
+          "label": "Market Value",
+          "order": 1,
+          "width": "third",
+          "required": true,
+          "fieldType": "number"
+        },
+        {
+          "id": "field_1763546879649",
+          "label": "Motivation",
+          "order": 1,
+          "width": "full",
+          "required": true,
+          "fieldType": "rating"
+        }
+      ],
+      "createdBy": "cmi4ji7sr0000eqjmzetx7kar",
+      "isActive": true,
+      "createdAt": "2025-11-19T10:08:21.391Z",
+      "updatedAt": "2025-11-19T10:08:21.391Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "cmi4ji7sr0000eqjmzetx7kar",
+      "serialNumber": null,
+      "username": "admin",
+      "email": "admin@corviasolutions.com",
+      "passwordHash": "$2a$12$vKkgaJwcNwF.voV27mbr2OEuLA.RN6Bk1KAKY0onnM4hnsljm6ufC",
+      "role": "Manager",
+      "fullName": "System Administrator",
+      "teamId": null,
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-18T12:18:39.483Z",
+      "lastLogin": "2025-11-24T03:32:19.216Z",
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": "2025-11-23T22:00:00.000Z"
+    },
+    {
+      "id": "cmi5spbqg00092bkzwp5n4373",
+      "serialNumber": "USR-0014",
+      "username": "agent8",
+      "email": "agent8@gmail.com",
+      "passwordHash": "$2a$12$4Y/MUBKayjSL2Q8uFYYKy.lr9M0xQ1e7Fyqw3RTEwJn8hJ.GPyNOG",
+      "role": "Agent",
+      "fullName": "Mariam Hamdy",
+      "teamId": "cmi5snbku00052bkz18ykwxvg",
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-19T09:23:53.896Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi5sn2wg00032bkzb8xcnu1u",
+      "serialNumber": "USR-0012",
+      "username": "agent6",
+      "email": "agent6@gmail.com",
+      "passwordHash": "$2a$12$OhCzIVHE1Wip49wE77mtDepfDjYj00TRCHyV52tgAG.s0Yw8ndHsa",
+      "role": "Agent",
+      "fullName": "Hazem Mohammed",
+      "teamId": "cmi5snbku00052bkz18ykwxvg",
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-19T09:22:09.136Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi4x0gz800028iq9g3pjfh4a",
+      "serialNumber": "USR-0009",
+      "username": "agent4",
+      "email": "agent4@gmail.com",
+      "passwordHash": "$2a$12$RpNRgF1pNLp7.TZG7Zy3xej6XiptuB27tcTmgbEhL75Wcr3zZhXye",
+      "role": "Agent",
+      "fullName": "Dina Salah Anwar",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-18T18:36:46.196Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi4x3k2l0001fbgfel4s9mgi",
+      "serialNumber": "USR-0010",
+      "username": "agent5",
+      "email": "agent5@gmail.com",
+      "passwordHash": "$2a$12$Vomr3Lz/44nplCvJwTKNtu/S2ybVADfdfpOsAAzXVRwDvszwx1.S6",
+      "role": "Agent",
+      "fullName": "Ahmed Hossam",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-18T18:39:10.173Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi4jzumr0005b9czd0oezxoy",
+      "serialNumber": "USR-0003",
+      "username": "acm",
+      "email": "acm@gmail.com",
+      "passwordHash": "$2a$12$qYDGbpITCewUccoZVJsZNuvouSnaklGJtc4qKFn9LblRPEXX9jg/y",
+      "role": "AccountManager",
+      "fullName": "Nabila El Sherbiny",
+      "teamId": null,
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-18T12:32:22.227Z",
+      "lastLogin": "2025-11-24T03:24:07.711Z",
+      "todayLoginTime": "2025-11-24T14:45:00.000Z",
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": "2025-11-23T22:00:00.000Z"
+    },
+    {
+      "id": "cmi5slegx00012bkz15nicbp4",
+      "serialNumber": "USR-0011",
+      "username": "teamlead2",
+      "email": "teamlead2@gmail.com",
+      "passwordHash": "$2a$12$73/ldjxEWsXfjj2Q.g1YiuSMypeWVvrOKKv8oOAPEzfGsa3BtJWC6",
+      "role": "TeamLeader",
+      "fullName": "Abdelrahman Gamal",
+      "teamId": "cmi5snbku00052bkz18ykwxvg",
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "isActive": true,
+      "createdAt": "2025-11-19T09:20:50.817Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi5uj3gc001u2ba47pj1uxsq",
+      "serialNumber": "USR-0015",
+      "username": "teamlead3",
+      "email": "teamlead3@gmail.com",
+      "passwordHash": "$2a$12$up28lN0Hs/FtblIiKUgfCeXRy6HXFJ6P/Oo2j.84w10Mb5nVBwpDW",
+      "role": "TeamLeader",
+      "fullName": "Bishoy Hanna",
+      "teamId": "cmi5u8yp400012ba4z7maqmy8",
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "isActive": true,
+      "createdAt": "2025-11-19T10:15:02.460Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi7hsvv40004gqxt7y14hgpj",
+      "serialNumber": "USR-0016",
+      "username": "it3",
+      "email": "it3@gmail.com",
+      "passwordHash": "$2a$12$7mKKBg4IDSmCQEWfYv3HMearyy9xZPET2GRPqVkzZhhC1pAe78oS6",
+      "role": "IT",
+      "fullName": "Shady Diaa",
+      "teamId": null,
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "isActive": true,
+      "createdAt": "2025-11-20T13:54:16.529Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi4k22cj000db9cz8ukdwzvs",
+      "serialNumber": "USR-0007",
+      "username": "agent2",
+      "email": "agent2@gmail.com",
+      "passwordHash": "$2a$12$TOhmGzY9hnERNlFR0.v52OOOr.UuX0lults7m82YOys9UV55peprO",
+      "role": "Agent",
+      "fullName": "Ahmed Shaker",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-18T12:34:05.539Z",
+      "lastLogin": "2025-11-21T17:39:11.880Z",
+      "todayLoginTime": "2025-11-21T17:39:11.880Z",
+      "todayLatenessMinutes": 159,
+      "lastLoginDate": "2025-11-20T22:00:00.000Z"
+    },
+    {
+      "id": "cmi4jygvd0001b9cza09bgoir",
+      "serialNumber": "USR-0001",
+      "username": "agent1",
+      "email": "agent1@gmail.com",
+      "passwordHash": "$2a$12$/SXi8kbR4SighTBiqUjlquvyXNXLaUe0HtUHFoK4kPK5vYPAVrFDq",
+      "role": "SeniorAgent",
+      "fullName": "Peter Refaat Khalil",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-18T12:31:17.737Z",
+      "lastLogin": "2025-11-24T03:22:38.324Z",
+      "todayLoginTime": "2025-11-24T14:45:00.000Z",
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": "2025-11-23T22:00:00.000Z"
+    },
+    {
+      "id": "cmi4jz9uj0003b9czz8dqcurd",
+      "serialNumber": "USR-0002",
+      "username": "teamlead1",
+      "email": "teamlead1@gmail.com",
+      "passwordHash": "$2a$12$/aSDDD2lW.G3BzTvfEyNWugvF9RSRhXuQITQdU.hKCDs5PtqqWFXG",
+      "role": "TeamLeader",
+      "fullName": "Farah Ayman",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "isActive": true,
+      "createdAt": "2025-11-18T12:31:55.291Z",
+      "lastLogin": "2025-11-21T17:39:18.219Z",
+      "todayLoginTime": "2025-11-21T17:39:18.219Z",
+      "todayLatenessMinutes": 159,
+      "lastLoginDate": "2025-11-20T22:00:00.000Z"
+    },
+    {
+      "id": "cmicl5jfd000d117ynpb1b13j",
+      "serialNumber": "USR-0017",
+      "username": "qc2",
+      "email": "qc2@gmail.com",
+      "passwordHash": "$2a$12$Ers4vvCg9pNKE//gVIH.JehiquSsVE7sIMGVY1LzRhK16DqrNjpTm",
+      "role": "QualityControl",
+      "fullName": "Sarah Rasmy",
+      "teamId": null,
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "isActive": true,
+      "createdAt": "2025-11-24T03:26:56.665Z",
+      "lastLogin": "2025-11-24T03:31:47.277Z",
+      "todayLoginTime": "2025-11-24T14:45:00.000Z",
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": "2025-11-23T22:00:00.000Z"
+    },
+    {
+      "id": "cmi4k10pm0009b9czyi0if4pw",
+      "serialNumber": "USR-0005",
+      "username": "qc1",
+      "email": "qc1@gmail.com",
+      "passwordHash": "$2a$12$NNASkWjihOdM47mtY7tF3e5/6bFhE2asUDjLkbmzuuPysIFuk3sDW",
+      "role": "QualityControl",
+      "fullName": "Ali Abo Elnasr",
+      "teamId": null,
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "isActive": true,
+      "createdAt": "2025-11-18T12:33:16.762Z",
+      "lastLogin": "2025-11-24T03:31:16.098Z",
+      "todayLoginTime": "2025-11-24T14:45:00.000Z",
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": "2025-11-23T22:00:00.000Z"
+    },
+    {
+      "id": "cmi4k09ty0007b9cz1ccrn1ry",
+      "serialNumber": "USR-0004",
+      "username": "it",
+      "email": "it@gmail.com",
+      "passwordHash": "$2a$12$iIMtvHOsasPD2em2FSoiCuBcdOgV4C9.6cP7VweZxjqCSLT32PhcK",
+      "role": "IT",
+      "fullName": "Mohamed Ali",
+      "teamId": null,
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "isActive": true,
+      "createdAt": "2025-11-18T12:32:41.926Z",
+      "lastLogin": "2025-11-21T17:39:31.313Z",
+      "todayLoginTime": "2025-11-21T17:39:31.313Z",
+      "todayLatenessMinutes": 159,
+      "lastLoginDate": "2025-11-20T22:00:00.000Z"
+    },
+    {
+      "id": "cmi4k1gog000bb9czjjtatgei",
+      "serialNumber": "USR-0006",
+      "username": "client1",
+      "email": "client1@gmail.com",
+      "passwordHash": "$2a$12$RlXGd4FiDGhcWIKVwnJfgO/oZG/Eai/5oG7ZBAKOw63YdhN3D1Nwe",
+      "role": "Client",
+      "fullName": "Kendrick",
+      "teamId": null,
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-18T12:33:37.456Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi4wkzzn0001i6xbg66mjdd7",
+      "serialNumber": "USR-0008",
+      "username": "agent3",
+      "email": "no@gmail.com",
+      "passwordHash": "$2a$12$GUbsbARHm/dBCsSJylaeKOeF0cly7KbHydensAo9yDbujRt0h/SBW",
+      "role": "Agent",
+      "fullName": "Hassan El Gendy",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-18T18:24:44.340Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    },
+    {
+      "id": "cmi5sobjs00072bkz6ggqtlk7",
+      "serialNumber": "USR-0013",
+      "username": "agent7",
+      "email": "agent7@gmail.com",
+      "passwordHash": "$2a$12$MqOC6FzGTs/013e17kI1N.tbVuoJnoNpEA79FGQTMoZX8Q6/Afjw.",
+      "role": "Agent",
+      "fullName": "Mohammed Ayoub",
+      "teamId": "cmi5u8yp400012ba4z7maqmy8",
+      "accountManagerId": null,
+      "isActive": true,
+      "createdAt": "2025-11-19T09:23:07.001Z",
+      "lastLogin": null,
+      "todayLoginTime": null,
+      "todayLatenessMinutes": 0,
+      "lastLoginDate": null
+    }
+  ],
+  "teams": [
+    {
+      "id": "cmi4k2ae3000fb9czivrhpgi2",
+      "name": "Wolves",
+      "teamLeaderUserId": "cmi4jz9uj0003b9czz8dqcurd"
+    },
+    {
+      "id": "cmi5snbku00052bkz18ykwxvg",
+      "name": "Enforcers",
+      "teamLeaderUserId": "cmi5slegx00012bkz15nicbp4"
+    },
+    {
+      "id": "cmi5u8yp400012ba4z7maqmy8",
+      "name": "Knights",
+      "teamLeaderUserId": "cmi5uj3gc001u2ba47pj1uxsq"
+    }
+  ],
+  "campaigns": [
+    {
+      "id": "cmi4k3iv1000jb9czrrs2xdp3",
+      "name": "Yankee",
+      "managerId": "cmi4ji7sr0000eqjmzetx7kar",
+      "clientId": "cmi4k1gog000bb9czjjtatgei",
+      "qcUserId": null,
+      "leadsTarget": 10,
+      "isActive": true,
+      "formConfig": "{\"listingStatus\":{\"enabled\":true,\"options\":[\"ListedByOwner\",\"ListedByRealtor\",\"NotListed\"],\"required\":true},\"occupancy\":{\"enabled\":true,\"options\":[\"OwnerOccupied\",\"RentedMTM\",\"RentedAnnually\",\"Vacant\"],\"required\":true},\"mortgage\":{\"enabled\":true,\"required\":true},\"propertyType\":{\"enabled\":true,\"options\":[\"SingleFamily\",\"MultiFamily\",\"Condo\",\"Townhouse\",\"VacantLots\",\"Apartment\",\"MobileHome\",\"MobileHomeAndLot\"],\"required\":true},\"license\":{\"enabled\":true,\"options\":[\"Residential\",\"Commercial\",\"Agriculture\",\"MixedUse\"],\"required\":false},\"closingTimeline\":{\"enabled\":true,\"options\":[\"Asap\",\"ThirtyDays\",\"SixtyDays\",\"NinetyDays\",\"SixMonths\"],\"required\":true}}",
+      "formTemplateId": null,
+      "timezone": "CST",
+      "createdAt": "2025-11-18T12:35:13.597Z"
+    },
+    {
+      "id": "cmi4k3tsh000pb9czc9fc7g1g",
+      "name": "Elements",
+      "managerId": "cmi4ji7sr0000eqjmzetx7kar",
+      "clientId": "cmi4k1gog000bb9czjjtatgei",
+      "qcUserId": null,
+      "leadsTarget": 10,
+      "isActive": true,
+      "formConfig": "{\"listingStatus\":{\"enabled\":true,\"options\":[\"ListedByOwner\",\"ListedByRealtor\",\"NotListed\"],\"required\":true},\"occupancy\":{\"enabled\":true,\"options\":[\"OwnerOccupied\",\"RentedMTM\",\"RentedAnnually\",\"Vacant\"],\"required\":true},\"mortgage\":{\"enabled\":true,\"required\":true},\"propertyType\":{\"enabled\":true,\"options\":[\"SingleFamily\",\"MultiFamily\",\"Condo\",\"Townhouse\",\"VacantLots\",\"Apartment\",\"MobileHome\",\"MobileHomeAndLot\"],\"required\":true},\"license\":{\"enabled\":true,\"options\":[\"Residential\",\"Commercial\",\"Agriculture\",\"MixedUse\"],\"required\":false},\"closingTimeline\":{\"enabled\":true,\"options\":[\"Asap\",\"ThirtyDays\",\"SixtyDays\",\"NinetyDays\",\"SixMonths\"],\"required\":true}}",
+      "formTemplateId": null,
+      "timezone": "EDT",
+      "createdAt": "2025-11-18T12:35:27.754Z"
+    },
+    {
+      "id": "cmi5stwxg000d2bkzv8x956st",
+      "name": "FED",
+      "managerId": "cmi4ji7sr0000eqjmzetx7kar",
+      "clientId": "cmi4k1gog000bb9czjjtatgei",
+      "qcUserId": null,
+      "leadsTarget": 5,
+      "isActive": true,
+      "formConfig": "{\"listingStatus\":{\"enabled\":true,\"options\":[\"ListedByOwner\",\"ListedByRealtor\",\"NotListed\"],\"required\":true},\"occupancy\":{\"enabled\":true,\"options\":[\"OwnerOccupied\",\"RentedMTM\",\"RentedAnnually\",\"Vacant\"],\"required\":true},\"mortgage\":{\"enabled\":true,\"required\":true},\"propertyType\":{\"enabled\":true,\"options\":[\"SingleFamily\",\"MultiFamily\",\"Condo\",\"Townhouse\",\"VacantLots\",\"Apartment\",\"MobileHome\",\"MobileHomeAndLot\"],\"required\":true},\"license\":{\"enabled\":true,\"options\":[\"Residential\",\"Commercial\",\"Agriculture\",\"MixedUse\"],\"required\":false},\"closingTimeline\":{\"enabled\":true,\"options\":[\"Asap\",\"ThirtyDays\",\"SixtyDays\",\"NinetyDays\",\"SixMonths\"],\"required\":true}}",
+      "formTemplateId": null,
+      "timezone": "EDT",
+      "createdAt": "2025-11-19T09:27:27.987Z"
+    },
+    {
+      "id": "cmi5subhj000j2bkzvj5cxp28",
+      "name": "Quebec",
+      "managerId": "cmi4ji7sr0000eqjmzetx7kar",
+      "clientId": "cmi4k1gog000bb9czjjtatgei",
+      "qcUserId": null,
+      "leadsTarget": 14,
+      "isActive": true,
+      "formConfig": "{\"listingStatus\":{\"enabled\":true,\"options\":[\"ListedByOwner\",\"ListedByRealtor\",\"NotListed\"],\"required\":true},\"occupancy\":{\"enabled\":true,\"options\":[\"OwnerOccupied\",\"RentedMTM\",\"RentedAnnually\",\"Vacant\"],\"required\":true},\"mortgage\":{\"enabled\":true,\"required\":true},\"propertyType\":{\"enabled\":true,\"options\":[\"SingleFamily\",\"MultiFamily\",\"Condo\",\"Townhouse\",\"VacantLots\",\"Apartment\",\"MobileHome\",\"MobileHomeAndLot\"],\"required\":true},\"license\":{\"enabled\":true,\"options\":[\"Residential\",\"Commercial\",\"Agriculture\",\"MixedUse\"],\"required\":false},\"closingTimeline\":{\"enabled\":true,\"options\":[\"Asap\",\"ThirtyDays\",\"SixtyDays\",\"NinetyDays\",\"SixMonths\"],\"required\":true}}",
+      "formTemplateId": null,
+      "timezone": "EDT",
+      "createdAt": "2025-11-19T09:27:46.854Z"
+    },
+    {
+      "id": "cmi5ubthe000a2ba4vrag4rga",
+      "name": "GHB",
+      "managerId": "cmi4ji7sr0000eqjmzetx7kar",
+      "clientId": "cmi4k1gog000bb9czjjtatgei",
+      "qcUserId": null,
+      "leadsTarget": 8,
+      "isActive": true,
+      "formConfig": null,
+      "formTemplateId": "cmi5uahzi00022ba46rpt9jwo",
+      "timezone": "EST",
+      "createdAt": "2025-11-19T10:09:22.946Z"
+    },
+    {
+      "id": "cmi5ubb4t00042ba4ugzof9z7",
+      "name": "HBU",
+      "managerId": "cmi4ji7sr0000eqjmzetx7kar",
+      "clientId": "cmi4k1gog000bb9czjjtatgei",
+      "qcUserId": null,
+      "leadsTarget": 8,
+      "isActive": true,
+      "formConfig": "{\"listingStatus\":{\"enabled\":true,\"options\":[\"ListedByOwner\",\"ListedByRealtor\",\"NotListed\"],\"required\":true},\"occupancy\":{\"enabled\":true,\"options\":[\"OwnerOccupied\",\"RentedMTM\",\"RentedAnnually\",\"Vacant\"],\"required\":true},\"mortgage\":{\"enabled\":true,\"required\":true},\"propertyType\":{\"enabled\":true,\"options\":[\"SingleFamily\",\"MultiFamily\",\"Condo\",\"Townhouse\",\"VacantLots\",\"Apartment\",\"MobileHome\",\"MobileHomeAndLot\"],\"required\":true},\"license\":{\"enabled\":true,\"options\":[\"Residential\",\"Commercial\",\"Agriculture\",\"MixedUse\"],\"required\":false},\"closingTimeline\":{\"enabled\":true,\"options\":[\"Asap\",\"ThirtyDays\",\"SixtyDays\",\"NinetyDays\",\"SixMonths\"],\"required\":true}}",
+      "formTemplateId": "cmi5uahzi00022ba46rpt9jwo",
+      "timezone": "EST",
+      "createdAt": "2025-11-19T10:08:59.164Z"
+    },
+    {
+      "id": "cmi5uccjg000k2ba4p26z6mrb",
+      "name": "JBL",
+      "managerId": "cmi4ji7sr0000eqjmzetx7kar",
+      "clientId": "cmi4k1gog000bb9czjjtatgei",
+      "qcUserId": null,
+      "leadsTarget": 8,
+      "isActive": true,
+      "formConfig": "{\"listingStatus\":{\"enabled\":true,\"options\":[\"ListedByOwner\",\"ListedByRealtor\",\"NotListed\"],\"required\":true},\"occupancy\":{\"enabled\":true,\"options\":[\"OwnerOccupied\",\"RentedMTM\",\"RentedAnnually\",\"Vacant\"],\"required\":true},\"mortgage\":{\"enabled\":true,\"required\":true},\"propertyType\":{\"enabled\":true,\"options\":[\"SingleFamily\",\"MultiFamily\",\"Condo\",\"Townhouse\",\"VacantLots\",\"Apartment\",\"MobileHome\",\"MobileHomeAndLot\"],\"required\":true},\"license\":{\"enabled\":true,\"options\":[\"Residential\",\"Commercial\",\"Agriculture\",\"MixedUse\"],\"required\":false},\"closingTimeline\":{\"enabled\":true,\"options\":[\"Asap\",\"ThirtyDays\",\"SixtyDays\",\"NinetyDays\",\"SixMonths\"],\"required\":true}}",
+      "formTemplateId": "cmi5uahzi00022ba46rpt9jwo",
+      "timezone": null,
+      "createdAt": "2025-11-19T10:09:47.645Z"
+    }
+  ],
+  "campaignTeams": [
+    {
+      "id": "cmi4k3iv2000lb9cztp4sammk",
+      "campaignId": "cmi4k3iv1000jb9czrrs2xdp3",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "createdAt": "2025-11-18T12:35:13.597Z"
+    },
+    {
+      "id": "cmi4k3tsh000rb9czxlw6fwcb",
+      "campaignId": "cmi4k3tsh000pb9czc9fc7g1g",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "createdAt": "2025-11-18T12:35:27.754Z"
+    },
+    {
+      "id": "cmi5stwxh000f2bkz5uc2cotu",
+      "campaignId": "cmi5stwxg000d2bkzv8x956st",
+      "teamId": "cmi5snbku00052bkz18ykwxvg",
+      "createdAt": "2025-11-19T09:27:27.987Z"
+    },
+    {
+      "id": "cmi5subhk000l2bkz0q8vk86c",
+      "campaignId": "cmi5subhj000j2bkzvj5cxp28",
+      "teamId": "cmi5snbku00052bkz18ykwxvg",
+      "createdAt": "2025-11-19T09:27:46.854Z"
+    },
+    {
+      "id": "cmi5ubthh000c2ba47ljwsm0x",
+      "campaignId": "cmi5ubthe000a2ba4vrag4rga",
+      "teamId": "cmi5snbku00052bkz18ykwxvg",
+      "createdAt": "2025-11-19T10:09:22.946Z"
+    },
+    {
+      "id": "cmi5ubx49000g2ba4lsr3rnyl",
+      "campaignId": "cmi5ubb4t00042ba4ugzof9z7",
+      "teamId": "cmi5u8yp400012ba4z7maqmy8",
+      "createdAt": "2025-11-19T10:09:27.655Z"
+    },
+    {
+      "id": "cmicld7q60009mdcpkbn83its",
+      "campaignId": "cmi5uccjg000k2ba4p26z6mrb",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "createdAt": "2025-11-24T03:32:54.748Z"
+    }
+  ],
+  "campaignQCs": [
+    {
+      "id": "cmi4k3iv2000nb9cz5xmsl9ia",
+      "campaignId": "cmi4k3iv1000jb9czrrs2xdp3",
+      "qcUserId": "cmi4k10pm0009b9czyi0if4pw",
+      "createdAt": "2025-11-18T12:35:13.597Z"
+    },
+    {
+      "id": "cmi4k3tsi000tb9czh08pho96",
+      "campaignId": "cmi4k3tsh000pb9czc9fc7g1g",
+      "qcUserId": "cmi4k10pm0009b9czyi0if4pw",
+      "createdAt": "2025-11-18T12:35:27.754Z"
+    },
+    {
+      "id": "cmi5stwxi000h2bkzv3x2aled",
+      "campaignId": "cmi5stwxg000d2bkzv8x956st",
+      "qcUserId": "cmi4k10pm0009b9czyi0if4pw",
+      "createdAt": "2025-11-19T09:27:27.987Z"
+    },
+    {
+      "id": "cmi5subhk000n2bkz7trkrk1t",
+      "campaignId": "cmi5subhj000j2bkzvj5cxp28",
+      "qcUserId": "cmi4k10pm0009b9czyi0if4pw",
+      "createdAt": "2025-11-19T09:27:46.854Z"
+    },
+    {
+      "id": "cmi5ubthi000e2ba40wzezgg3",
+      "campaignId": "cmi5ubthe000a2ba4vrag4rga",
+      "qcUserId": "cmi4k10pm0009b9czyi0if4pw",
+      "createdAt": "2025-11-19T10:09:22.946Z"
+    },
+    {
+      "id": "cmi5ubx4a000i2ba4j9icvi4c",
+      "campaignId": "cmi5ubb4t00042ba4ugzof9z7",
+      "qcUserId": "cmi4k10pm0009b9czyi0if4pw",
+      "createdAt": "2025-11-19T10:09:27.655Z"
+    },
+    {
+      "id": "cmicld7q8000bmdcptehi8rsz",
+      "campaignId": "cmi5uccjg000k2ba4p26z6mrb",
+      "qcUserId": "cmicl5jfd000d117ynpb1b13j",
+      "createdAt": "2025-11-24T03:32:54.748Z"
+    }
+  ],
+  "leads": [
+    {
+      "id": "cmickx80n0003117y4ia83nbm",
+      "serialNumber": "CR202511240001",
+      "campaignId": "cmi5uccjg000k2ba4p26z6mrb",
+      "agentId": "cmi4jygvd0001b9cza09bgoir",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "homeownerFirst": "Peter",
+      "homeownerLast": "Refaat",
+      "phone": "(505) 122-7204",
+      "email": "no@gmail.com",
+      "bedrooms": 0,
+      "bathrooms": 0,
+      "marketValue": 0,
+      "askingPrice": null,
+      "negotiable": null,
+      "license": null,
+      "propertyType": null,
+      "sellingReason": null,
+      "ownershipTimelineValue": null,
+      "ownershipTimelineUnit": null,
+      "listingStatus": "NotListed",
+      "occupancy": "OwnerOccupied",
+      "mortgageYesNo": false,
+      "mortgageAmount": null,
+      "closingTimeline": "Anytime",
+      "addressText": "N/A",
+      "motivationRating": 5,
+      "conditionRating": 5,
+      "additionalInfo": null,
+      "customFields": {
+        "field_1763546863785": "125000",
+        "field_1763546879649": 10
+      },
+      "submitCheckboxFlag": true,
+      "status": "Pending",
+      "qcUserId": "cmi4k10pm0009b9czyi0if4pw",
+      "qcComment": null,
+      "temperature": null,
+      "overrideQualified": false,
+      "overrideReason": null,
+      "callRecordingUrl": null,
+      "recordingDuration": null,
+      "starred": false,
+      "clientReviewed": false,
+      "pipelineStage": "Attempting Contact",
+      "archived": false,
+      "archivedAt": null,
+      "createdAt": "2025-11-24T03:20:28.628Z",
+      "updatedAt": "2025-11-24T03:20:28.628Z"
+    },
+    {
+      "id": "cmickxzod0007117yanrgw1ex",
+      "serialNumber": "CR202511240002",
+      "campaignId": "cmi5uccjg000k2ba4p26z6mrb",
+      "agentId": "cmi4jygvd0001b9cza09bgoir",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "homeownerFirst": "John",
+      "homeownerLast": "Haggerty",
+      "phone": "(505) 122-7205",
+      "email": "no@gmail.com",
+      "bedrooms": 0,
+      "bathrooms": 0,
+      "marketValue": 0,
+      "askingPrice": null,
+      "negotiable": null,
+      "license": null,
+      "propertyType": null,
+      "sellingReason": null,
+      "ownershipTimelineValue": null,
+      "ownershipTimelineUnit": null,
+      "listingStatus": "NotListed",
+      "occupancy": "OwnerOccupied",
+      "mortgageYesNo": false,
+      "mortgageAmount": null,
+      "closingTimeline": "Anytime",
+      "addressText": "N/A",
+      "motivationRating": 5,
+      "conditionRating": 5,
+      "additionalInfo": null,
+      "customFields": {
+        "field_1763546863785": "130000",
+        "field_1763546879649": 3
+      },
+      "submitCheckboxFlag": true,
+      "status": "Pending",
+      "qcUserId": "cmi4k10pm0009b9czyi0if4pw",
+      "qcComment": null,
+      "temperature": null,
+      "overrideQualified": false,
+      "overrideReason": null,
+      "callRecordingUrl": null,
+      "recordingDuration": null,
+      "starred": false,
+      "clientReviewed": false,
+      "pipelineStage": "Attempting Contact",
+      "archived": false,
+      "archivedAt": null,
+      "createdAt": "2025-11-24T03:21:04.471Z",
+      "updatedAt": "2025-11-24T03:21:04.471Z"
+    }
+  ],
+  "leadNotes": [],
+  "leadAudits": [
+    {
+      "id": "cmickxbsl0005117y95lojok5",
+      "leadId": "cmickx80n0003117y4ia83nbm",
+      "userId": "cmi4jygvd0001b9cza09bgoir",
+      "action": "Create",
+      "payload": {
+        "email": "no@gmail.com",
+        "phone": "(505) 122-7204",
+        "bedrooms": 0,
+        "bathrooms": 0,
+        "occupancy": "OwnerOccupied",
+        "campaignId": "cmi5uccjg000k2ba4p26z6mrb",
+        "addressText": "N/A",
+        "marketValue": 0,
+        "customFields": {
+          "field_1763546863785": "125000",
+          "field_1763546879649": 10
+        },
+        "serialNumber": "CR202511240001",
+        "homeownerLast": "Refaat",
+        "listingStatus": "NotListed",
+        "mortgageYesNo": false,
+        "homeownerFirst": "Peter",
+        "closingTimeline": "Anytime",
+        "conditionRating": 5,
+        "motivationRating": 5,
+        "submitCheckboxFlag": true
+      },
+      "createdAt": "2025-11-24T03:20:33.525Z"
+    },
+    {
+      "id": "cmicky0zl0009117ycqt3y4aq",
+      "leadId": "cmickxzod0007117yanrgw1ex",
+      "userId": "cmi4jygvd0001b9cza09bgoir",
+      "action": "Create",
+      "payload": {
+        "email": "no@gmail.com",
+        "phone": "(505) 122-7205",
+        "bedrooms": 0,
+        "bathrooms": 0,
+        "occupancy": "OwnerOccupied",
+        "campaignId": "cmi5uccjg000k2ba4p26z6mrb",
+        "addressText": "N/A",
+        "marketValue": 0,
+        "customFields": {
+          "field_1763546863785": "130000",
+          "field_1763546879649": 3
+        },
+        "serialNumber": "CR202511240002",
+        "homeownerLast": "Haggerty",
+        "listingStatus": "NotListed",
+        "mortgageYesNo": false,
+        "homeownerFirst": "John",
+        "closingTimeline": "Anytime",
+        "conditionRating": 5,
+        "motivationRating": 5,
+        "submitCheckboxFlag": true
+      },
+      "createdAt": "2025-11-24T03:21:06.177Z"
+    }
+  ],
+  "clientNotes": [],
+  "clientSchedules": [],
+  "leaveRequests": [],
+  "itTickets": [],
+  "itTicketResponses": [],
+  "itTicketStatusHistory": [],
+  "itAssignments": [
+    {
+      "id": "cmicldtna000hmdcp2rd66csw",
+      "itUserId": "cmi4k09ty0007b9cz1ccrn1ry",
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "createdAt": "2025-11-24T03:33:23.158Z"
+    },
+    {
+      "id": "cmicldtnh000jmdcpmk5q3v9y",
+      "itUserId": "cmi7hsvv40004gqxt7y14hgpj",
+      "accountManagerId": "cmi4jzumr0005b9czd0oezxoy",
+      "createdAt": "2025-11-24T03:33:23.165Z"
+    }
+  ],
+  "loginHistory": [
+    {
+      "id": "cmi95c0ga00019eyj96giwymk",
+      "userId": "cmi4k10pm0009b9czyi0if4pw",
+      "loginDate": "2025-11-20T22:00:00.000Z",
+      "loginTime": "2025-11-21T17:40:46.279Z",
+      "latenessMinutes": 160,
+      "createdAt": "2025-11-21T17:40:46.282Z"
+    },
+    {
+      "id": "cmibzbzhk00019qckt32py3xe",
+      "userId": "cmi4jygvd0001b9cza09bgoir",
+      "loginDate": "2025-11-22T22:00:00.000Z",
+      "loginTime": "2025-11-23T17:16:05.849Z",
+      "latenessMinutes": 136,
+      "createdAt": "2025-11-23T17:16:05.863Z"
+    },
+    {
+      "id": "cmicku7l20001117ygd5g7ngs",
+      "userId": "cmi4jygvd0001b9cza09bgoir",
+      "loginDate": "2025-11-23T22:00:00.000Z",
+      "loginTime": "2025-11-24T14:45:00.000Z",
+      "latenessMinutes": 0,
+      "createdAt": "2025-11-24T03:18:08.099Z"
+    },
+    {
+      "id": "cmicl1x2a000b117y75yvhfm6",
+      "userId": "cmi4jzumr0005b9czd0oezxoy",
+      "loginDate": "2025-11-23T22:00:00.000Z",
+      "loginTime": "2025-11-24T14:45:00.000Z",
+      "latenessMinutes": 0,
+      "createdAt": "2025-11-24T03:24:07.714Z"
+    },
+    {
+      "id": "cmiclanfm0001mdcpipv0mjkw",
+      "userId": "cmicl5jfd000d117ynpb1b13j",
+      "loginDate": "2025-11-23T22:00:00.000Z",
+      "loginTime": "2025-11-24T14:45:00.000Z",
+      "latenessMinutes": 0,
+      "createdAt": "2025-11-24T03:30:55.138Z"
+    },
+    {
+      "id": "cmiclb3nu0003mdcpowq21ct0",
+      "userId": "cmi4k10pm0009b9czyi0if4pw",
+      "loginDate": "2025-11-23T22:00:00.000Z",
+      "loginTime": "2025-11-24T14:45:00.000Z",
+      "latenessMinutes": 0,
+      "createdAt": "2025-11-24T03:31:16.168Z"
+    },
+    {
+      "id": "cmi959udc0001y10t9ejp2f24",
+      "userId": "cmi4jygvd0001b9cza09bgoir",
+      "loginDate": "2025-11-20T22:00:00.000Z",
+      "loginTime": "2025-11-21T17:39:05.086Z",
+      "latenessMinutes": 159,
+      "createdAt": "2025-11-21T17:39:05.088Z"
+    },
+    {
+      "id": "cmi959zm30003y10t9ruogu8t",
+      "userId": "cmi4k22cj000db9cz8ukdwzvs",
+      "loginDate": "2025-11-20T22:00:00.000Z",
+      "loginTime": "2025-11-21T17:39:11.880Z",
+      "latenessMinutes": 159,
+      "createdAt": "2025-11-21T17:39:11.883Z"
+    },
+    {
+      "id": "cmi95a4i50005y10t3rn5i3e6",
+      "userId": "cmi4jz9uj0003b9czz8dqcurd",
+      "loginDate": "2025-11-20T22:00:00.000Z",
+      "loginTime": "2025-11-21T17:39:18.219Z",
+      "latenessMinutes": 159,
+      "createdAt": "2025-11-21T17:39:18.222Z"
+    },
+    {
+      "id": "cmi95aelv0007y10tsbanzw1y",
+      "userId": "cmi4k09ty0007b9cz1ccrn1ry",
+      "loginDate": "2025-11-20T22:00:00.000Z",
+      "loginTime": "2025-11-21T17:39:31.313Z",
+      "latenessMinutes": 159,
+      "createdAt": "2025-11-21T17:39:31.316Z"
+    },
+    {
+      "id": "cmi95aizd0009y10tomc5imft",
+      "userId": "cmi4jzumr0005b9czd0oezxoy",
+      "loginDate": "2025-11-20T22:00:00.000Z",
+      "loginTime": "2025-11-21T17:39:36.983Z",
+      "latenessMinutes": 159,
+      "createdAt": "2025-11-21T17:39:36.985Z"
+    }
+  ],
+  "dailyTopAgents": [
+    {
+      "id": "cmi6sabyh000qxpcn2m9ge8p9",
+      "date": "2025-11-19T02:00:00.000Z",
+      "teamId": "cmi4k2ae3000fb9czivrhpgi2",
+      "topAgentId": "cmi4jygvd0001b9cza09bgoir",
+      "topAgentName": "Peter Refaat Khalil",
+      "totalLeads": 6,
+      "qualified": 5,
+      "disqualified": 0,
+      "createdAt": "2025-11-20T02:00:00.521Z"
+    },
+    {
+      "id": "cmi6sabyr000sxpcnyx8t12ys",
+      "date": "2025-11-19T02:00:00.000Z",
+      "teamId": "cmi5snbku00052bkz18ykwxvg",
+      "topAgentId": "cmi5sn2wg00032bkzb8xcnu1u",
+      "topAgentName": "Hazem Mohammed",
+      "totalLeads": 3,
+      "qualified": 2,
+      "disqualified": 0,
+      "createdAt": "2025-11-20T02:00:00.531Z"
+    },
+    {
+      "id": "cmi6sabyx000uxpcnjclz7cdl",
+      "date": "2025-11-19T02:00:00.000Z",
+      "teamId": "cmi5u8yp400012ba4z7maqmy8",
+      "topAgentId": "cmi5sobjs00072bkz6ggqtlk7",
+      "topAgentName": "Mohammed Ayoub",
+      "totalLeads": 2,
+      "qualified": 2,
+      "disqualified": 0,
+      "createdAt": "2025-11-20T02:00:00.537Z"
+    }
+  ]
+}

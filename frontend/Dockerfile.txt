@@ -1,0 +1,23 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files first (for better caching)
+COPY package*.json ./
+COPY vite.config.ts ./
+COPY tsconfig.json ./
+COPY tsconfig.node.json ./
+COPY tailwind.config.js ./
+COPY postcss.config.js ./
+
+# Install dependencies
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Expose port
+EXPOSE 3000
+
+# Start the application in development mode
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

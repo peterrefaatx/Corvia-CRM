@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-11-24T03:39:50.919Z",
+  "type": "manual",
+  "size": 36826,
+  "checksum": "66e5a4662aae5185289c01141794a72c202c7ef1659b1e5d2e7941f7e1d5edad",
+  "recordCounts": {
+    "systemSettings": 7,
+    "pipelineStages": 4,
+    "formTemplates": 1,
+    "users": 18,
+    "teams": 3,
+    "campaigns": 7,
+    "campaignTeams": 7,
+    "campaignQCs": 7,
+    "leads": 2,
+    "leadNotes": 0,
+    "leadAudits": 2,
+    "clientNotes": 0,
+    "clientSchedules": 0,
+    "leaveRequests": 0,
+    "itTickets": 0,
+    "itTicketResponses": 0,
+    "itTicketStatusHistory": 0,
+    "itAssignments": 2,
+    "loginHistory": 11,
+    "dailyTopAgents": 3
+  },
+  "version": "3.0.0",
+  "method": "prisma"
+}
